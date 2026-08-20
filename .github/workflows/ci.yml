@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint (scaffold)
+        run: |
+          echo "No app lint scripts yet — scaffold pass."
+          echo "When package.json / apps exist with lint scripts, replace this step and fail on errors."
+
+  typecheck:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Type check (scaffold)
+        run: |
+          echo "No typecheck scripts yet — scaffold pass."
+          echo "When the stack is defined, run the real typechecker here."
+
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests (scaffold)
+        run: |
+          echo "No unit tests yet — scaffold pass."
+          echo "Wire npm/pnpm/pytest (etc.) test commands when apps exist."
+
+  integration-tests:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Integration tests (scaffold)
+        run: |
+          echo "No integration tests yet — scaffold pass."
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, unit-tests]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (scaffold)
+        run: |
+          echo "No build scripts yet — scaffold pass."
+          echo "Replace with real build; PR must stay red on failure."
+
+  security:
+    name: Security checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Secret scan hygiene (scaffold)
+        run: |
+          echo "Checking that .env is not tracked..."
+          if git ls-files | grep -E '(^|/)\.env$' ; then
+            echo "::error::Tracked .env file found — remove secrets from git"
+            exit 1
+          fi
+          echo "No tracked .env — scaffold security check passed."

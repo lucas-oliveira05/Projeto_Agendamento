@@ -1,0 +1,16 @@
+---
+description: GitHub as source of truth — branches, PRs, commits, incremental work
+alwaysApply: true
+---
+
+# GitHub engineering
+
+- GitHub is the source of truth. Local folders are temporary clone/runtime only.
+- Do not invent a second "main project" outside this repo.
+- Work on `feature/*` (or `fix/*`) branches; open PRs. Do not put all work on `main`.
+- Use conventional commits (`feat:`, `fix:`, `fix:`, `docs:`, …). No generic messages (`update`, `final`).
+- Before coding: read README/ARCHITECTURE, check Issues/branch/pending changes, change only what is needed.
+- Never delete or rewrite the whole project to add a feature.
+- Never commit secrets or real `.env` values; use `.env.example` and GitHub Secrets.
+- Prefer PostgreSQL + versioned migrations; not SQLite as production DB.
+- After relevant work: update docs/CHANGELOG when appropriate, push, open PR, wait for CI.

@@ -1,0 +1,27 @@
+name: Security
+description: Security issue or hardening request
+title: "security: "
+labels: ["security"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Do not include real secrets. Prefer responsible disclosure for critical findings.
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact / tenant isolation notes
