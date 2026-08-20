@@ -1,111 +1,114 @@
 # Projeto Agendamento
 
-SaaS de agendamento multi-tenant (barbearias e negócios similares): agenda, clientes, pacotes, automações e recuperações — com o **GitHub como fonte oficial do código**.
+SaaS multi-tenant para barbearias — o **"funcionário digital da barbearia"**.
 
-## Problema que resolve
+> Você corta. O sistema cuida do resto.
 
-Negócios de serviço perdem tempo e receita com agendas manuais, faltas, clientes inativos e falta de follow-up. Este produto centraliza agendamento online, CRM leve, pacotes, fila de espera e notificações em um sistema multi-tenant.
+Agenda + CRM + pacotes + fila de espera + automações + **recuperação automática de clientes** + (futuro) agente de IA.
 
-## Principais funcionalidades (roadmap)
+**GitHub é a fonte oficial do código:** https://github.com/lucas-oliveira05/Projeto_Agendamento
 
-Ver seção [Roadmap](#roadmap). O núcleo planejado inclui autenticação multi-tenant, agenda, agendamento online, CRM, pacotes, waitlist, Brevo, recuperação automática, WhatsApp, Customer Intelligence, agente de IA e app Android.
+## Problema
 
-## Arquitetura
+Barbearias perdem leads, furam agenda com cancelamentos, sofrem no-shows e deixam clientes antigos esfriarem — enquanto o barbeiro está ocupado cortando.
 
-Monorepo com apps e packages compartilhados. Detalhes em [ARCHITECTURE.md](ARCHITECTURE.md).
+## Proposta de valor
+
+**Transforme sua barbearia em uma máquina de agendamentos e clientes recorrentes.**
+
+Ciclo: captar → converter → agendar → confirmar → atender → vender → fidelizar → **recuperar** → reagendar.
+
+Métrica-estrela: **Revenue Recovered** (receita recuperada por automações).
+
+## Stack
+
+| Camada | Tecnologia |
+|--------|------------|
+| Monorepo | pnpm + Turborepo |
+| API | NestJS (Fastify) |
+| Web | Next.js App Router |
+| ORM / DB | Prisma + PostgreSQL |
+| Filas | Redis + BullMQ |
+| Auth | JWT + refresh + RBAC |
+| Notificações | NotificationProvider → Brevo |
+| Mobile | Expo (MVP 4) |
+
+Detalhes: [ARCHITECTURE.md](ARCHITECTURE.md) · Spec: [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md)
+
+## Estrutura
 
 ```text
-Projeto_Agendamento/
-├── apps/          # web, api, mobile
-├── packages/      # shared, database, ui, config
-├── docs/
-├── tests/
-├── infrastructure/
-└── .github/
+apps/web · apps/api · apps/mobile
+packages/shared · database · ui · config
+docs/ · tests/ · infrastructure/ · .github/
 ```
 
-Stack tecnológica: **a definir** (será travada quando o prompt de produto 1–97 for aplicado). Preferência de banco: **PostgreSQL** hospedado (não SQLite como banco principal).
-
-## Source of truth
-
-- Repositório: https://github.com/lucas-oliveira05/Projeto_Agendamento
-- Fluxo: **GitHub → desenvolvimento → commit → push → GitHub**
-- Ambiente local é só clone temporário para execução e testes
-- Continuidade: README, Issues, PRs, CHANGELOG, docs — não depender da memória da IA
-
 ## Como executar
-
-1. Clone o repositório (não trate a pasta local como armazenamento permanente):
 
 ```bash
 git clone https://github.com/lucas-oliveira05/Projeto_Agendamento.git
 cd Projeto_Agendamento
-```
-
-2. Copie variáveis de ambiente:
-
-```bash
 cp .env.example .env
 ```
 
-3. Preencha `.env` localmente (nunca commitar valores reais).
-
-4. Instalação e scripts de app serão documentados aqui quando a stack for definida.
+Scripts de install/dev serão adicionados no bootstrap MVP 1 (`feature/mvp1-foundation`).
 
 ## Variáveis de ambiente
 
-Ver [.env.example](.env.example). Secrets reais ficam em Environment Variables / GitHub Secrets / Secret Manager — nunca no Git.
+Ver [.env.example](.env.example). Nunca commitar valores reais.
 
-## Como testar
+## Testes e CI
 
-CI via GitHub Actions (`.github/workflows/ci.yml`). Comandos locais serão adicionados com a stack.
+GitHub Actions: lint, typecheck, unit, integration, build, security. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Deploy
 
-Ambientes: **development**, **staging**, **production**. Ver [DEPLOYMENT.md](DEPLOYMENT.md). Deploy automatizado após PR + testes + merge, sempre que possível.
+development → staging → production. Ver [DEPLOYMENT.md](DEPLOYMENT.md).
 
-## Branches e PRs
+## Branches
 
-- `main` — versão estável
-- `develop` — integração
-- `feature/*` — funcionalidades
-
-Fluxo: Issue → branch → implementação → testes → PR → CI → review → merge. Detalhes em [CONTRIBUTING.md](CONTRIBUTING.md) e [AGENTS.md](AGENTS.md).
+`main` (estável) ← `develop` ← `feature/*` via Pull Request.
 
 ## Documentação
 
-| Documento | Conteúdo |
-|-----------|----------|
+| Doc | Conteúdo |
+|-----|----------|
+| [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md) | Spec de produto |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitetura |
-| [DATABASE.md](DATABASE.md) | Banco e migrations |
+| [DATABASE.md](DATABASE.md) | Banco |
 | [API.md](API.md) | API |
 | [SECURITY.md](SECURITY.md) | Segurança |
-| [DEPLOYMENT.md](DEPLOYMENT.md) | Deploy e ambientes |
-| [AI.md](AI.md) | Agente / IA |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Deploy |
 | [AUTOMATIONS.md](AUTOMATIONS.md) | Automações |
+| [AI.md](AI.md) | IA |
 | [INTEGRATIONS.md](INTEGRATIONS.md) | Integrações |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Como contribuir |
-| [CHANGELOG.md](CHANGELOG.md) | Histórico de versões |
 | [AGENTS.md](AGENTS.md) | Regras para IA |
+| [CHANGELOG.md](CHANGELOG.md) | Changelog |
 
 ## Roadmap
 
-- [x] Arquitetura inicial (scaffold)
-- [ ] Autenticação
-- [ ] Multi-tenancy
-- [ ] Agenda
-- [ ] Agendamento online
-- [ ] CRM
-- [ ] Pacotes
-- [ ] Fila de espera
-- [ ] Brevo
-- [ ] Recuperação automática
-- [ ] WhatsApp
-- [ ] Customer Intelligence
-- [ ] Agente IA
-- [ ] Android
+### MVP 1
+- [ ] Auth + multi-tenant
+- [ ] Barbeiros, clientes, serviços
+- [ ] Agenda + agendamento online
+- [ ] Dashboard básico
+- [ ] WhatsApp deep-link
+- [ ] Brevo (confirmação / lembrete)
+- [ ] Pacotes + fila de espera
+- [ ] Financeiro básico
 
-Atualizar este checklist conforme o desenvolvimento avançar.
+### MVP 2
+- [ ] CRM + leads
+- [ ] Customer Intelligence + recovery
+- [ ] Campanhas, avaliações, produtos/estoque
+
+### MVP 3
+- [ ] WhatsApp Business API + agente IA
+- [ ] Upsell / insights avançados
+
+### MVP 4
+- [ ] Android (Expo)
+- [ ] Push, indicação, white label
 
 ## Licença
 
