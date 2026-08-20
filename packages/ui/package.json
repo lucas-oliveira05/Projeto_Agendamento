@@ -1,0 +1,11 @@
+{
+  "name": "@barbearia/ui",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('ui: placeholder')\"",
+    "lint": "node -e \"console.log('ui: placeholder')\"",
+    "typecheck": "node -e \"console.log('ui: placeholder')\"",
+    "test": "node -e \"console.log('ui: placeholder')\""
+  }
+}

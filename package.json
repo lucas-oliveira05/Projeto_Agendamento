@@ -1,0 +1,19 @@
+{
+  "name": "projeto-agendamento",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:unit": "turbo run test --filter=@barbearia/shared --filter=@barbearia/api",
+    "db:generate": "pnpm --filter @barbearia/database generate",
+    "db:migrate": "pnpm --filter @barbearia/database migrate:dev"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}
