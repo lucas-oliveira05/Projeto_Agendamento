@@ -1,0 +1,16 @@
+name: Infrastructure
+description: Infra, CI/CD, environments
+title: "infra: "
+labels: ["infrastructure"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+    validations:
+      required: true
+  - type: textarea
+    id: environments
+    attributes:
+      label: Environments affected
+      description: development / staging / production

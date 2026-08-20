@@ -1,0 +1,16 @@
+name: Documentation
+description: Docs and README updates
+title: "docs: "
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What needs documenting?
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Suggested location
+      description: e.g. README, ARCHITECTURE.md, API.md
