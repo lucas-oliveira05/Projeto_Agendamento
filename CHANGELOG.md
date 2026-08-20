@@ -9,10 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Engineering bootstrap: monorepo scaffold, documentation, CI placeholder, GitHub workflow rules
+- Phase 1 architecture documentation (stack, modules, multi-tenancy, API, security)
+- Product master spec in `docs/PRODUCT_SPEC.md`
+- MVP 1–4 roadmap aligned to product prompt
 
 ## [0.1.0] - 2026-08-20
 
 ### Added
 
-- Initial repository with README
+- Engineering bootstrap: monorepo scaffold, CI, Issue/PR templates, agent rules
+- Initial repository

@@ -1,17 +1,32 @@
 # AI
 
-Planejamento do agente de IA e Customer Intelligence.
+Arquitetura preparada desde o início; implementação completa no **MVP 3**.
 
-## Escopo futuro
+## Componentes
 
-- Agente de IA para suporte / operações
-- Customer Intelligence (predição de retorno, insights)
-- Providers via API keys em secrets (nunca no Git)
+- `AIService`
+- `AIProvider`
+- `AIToolRegistry`
+- `AIConversationService`
+- `AIActionService`
 
-## Regras para a IA de desenvolvimento
+## Tools autorizadas
 
-Ver [AGENTS.md](AGENTS.md) e `.cursor/rules/github-engineering.mdc`.
+`get_available_slots` · `create_appointment` · `cancel_appointment` · `reschedule_appointment` · `get_customer` · `get_customer_history` · `get_customer_package` · `join_waitlist` · `get_services` · `get_barbers` · `send_confirmation`
 
-- Incremental: nunca reescrever o projeto inteiro
-- Continuidade via GitHub (Issues, PRs, docs)
-- Commits e PRs profissionais
+## Segurança
+
+- Sem SQL / acesso direto ao DB
+- Sem cross-tenant
+- Sem deletes/alterações arbitrárias
+- Audit: prompt, resposta, tool, params, resultado, user, tenant, timestamp
+
+## Handoff
+
+Se a IA não resolver → transferir para barbeiro com histórico e motivo.
+
+## Recovery + IA
+
+Fluxo futuro: sistema detecta retorno → mensagem → IA oferece horários → `create_appointment`.
+
+Detalhes de produto: [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md) (§27–39, §90).

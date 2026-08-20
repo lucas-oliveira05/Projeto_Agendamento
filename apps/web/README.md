@@ -1,5 +1,8 @@
 # web
 
-Frontend web do SaaS de agendamento.
+Frontend Next.js (App Router).
 
-Status: scaffold — implementação pendente.
+- Dashboards: owner, barbeiro, super admin
+- Público: `/barbearia/[slug]`
+
+Status: scaffold — bootstrap na branch `feature/mvp1-foundation`.

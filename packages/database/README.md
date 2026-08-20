@@ -1,13 +1,7 @@
 # database
 
-Schema, migrations e seeds. Preferência: PostgreSQL hospedado.
+Prisma + PostgreSQL. Schema e migrations versionadas.
 
-Layout planejado:
+Ver [DATABASE.md](../../DATABASE.md).
 
-```text
-migrations/
-seeds/
-schema/
-```
-
-Status: scaffold — implementação pendente.
+Status: scaffold — schema inicial no bootstrap MVP 1.
