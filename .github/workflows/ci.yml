@@ -12,30 +12,49 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Lint (scaffold)
-        run: |
-          echo "No app lint scripts yet — scaffold pass."
-          echo "When package.json / apps exist with lint scripts, replace this step and fail on errors."
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
 
   typecheck:
     name: Type check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Type check (scaffold)
-        run: |
-          echo "No typecheck scripts yet — scaffold pass."
-          echo "When the stack is defined, run the real typechecker here."
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/barbearia
+      - run: pnpm typecheck
 
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Unit tests (scaffold)
-        run: |
-          echo "No unit tests yet — scaffold pass."
-          echo "Wire npm/pnpm/pytest (etc.) test commands when apps exist."
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @barbearia/shared build
+      - run: pnpm test:unit
 
   integration-tests:
     name: Integration tests
@@ -44,7 +63,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Integration tests (scaffold)
         run: |
-          echo "No integration tests yet — scaffold pass."
+          echo "No integration suite yet — placeholder until DB-backed tests exist."
 
   build:
     name: Build
@@ -52,21 +71,28 @@ jobs:
     needs: [lint, typecheck, unit-tests]
     steps:
       - uses: actions/checkout@v4
-      - name: Build (scaffold)
-        run: |
-          echo "No build scripts yet — scaffold pass."
-          echo "Replace with real build; PR must stay red on failure."
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/barbearia
+      - run: pnpm build
 
   security:
     name: Security checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Secret scan hygiene (scaffold)
+      - name: Secret scan hygiene
         run: |
-          echo "Checking that .env is not tracked..."
-          if git ls-files | grep -E '(^|/)\.env$' ; then
-            echo "::error::Tracked .env file found — remove secrets from git"
+          if git ls-files | grep -E '(^|/)\.env$'; then
+            echo "::error::Tracked .env file found"
             exit 1
           fi
-          echo "No tracked .env — scaffold security check passed."
+          echo "No tracked .env — ok."

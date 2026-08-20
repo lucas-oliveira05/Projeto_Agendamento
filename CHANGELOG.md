@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- MVP 1 foundation: pnpm+Turborepo, NestJS API, Next.js web, Prisma schema (core+booking), tenant isolation tests, real CI scripts
 - Phase 1 architecture documentation (stack, modules, multi-tenancy, API, security)
 - Product master spec in `docs/PRODUCT_SPEC.md`
 - MVP 1–4 roadmap aligned to product prompt

@@ -49,10 +49,15 @@ docs/ · tests/ · infrastructure/ · .github/
 git clone https://github.com/lucas-oliveira05/Projeto_Agendamento.git
 cd Projeto_Agendamento
 cp .env.example .env
+# Defina DATABASE_URL (PostgreSQL) para gerar o client Prisma
+pnpm install
+pnpm db:generate
+pnpm --filter @barbearia/shared build
+pnpm --filter @barbearia/api dev    # http://localhost:3001/api/v1/health
+pnpm --filter @barbearia/web dev    # http://localhost:3000
 ```
 
-Scripts de install/dev serão adicionados no bootstrap MVP 1 (`feature/mvp1-foundation`).
-
+Comandos do monorepo: `pnpm lint` · `pnpm typecheck` · `pnpm test` · `pnpm build`.
 ## Variáveis de ambiente
 
 Ver [.env.example](.env.example). Nunca commitar valores reais.
