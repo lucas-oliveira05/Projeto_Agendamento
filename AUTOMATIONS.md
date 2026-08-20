@@ -1,25 +1,43 @@
 # Automations
 
-Automações de produto e de engenharia.
+## Modelo
 
-## Produto (planejado)
+`Event → Trigger → Action`
 
-- Recuperação automática de clientes
-- Notificações e lembretes (ex.: Brevo)
-- Waitlist e follow-ups
+## Eventos (MVP 1+)
 
-## Engenharia
+| Evento | Ação típica |
+|--------|-------------|
+| `appointment_created` | Confirmação (Brevo) |
+| `appointment_tomorrow` | Lembrete |
+| `appointment_completed` | Pós-venda |
+| `appointment_cancelled` | Consultar waitlist |
+| `customer_due_for_return` | Recovery (MVP 2) |
+| `customer_inactive` | Reativação (MVP 2) |
+| `package_expiring` | Aviso de vencimento |
 
-- GitHub Actions: lint, typecheck, unit/integration tests, build, security checks
-- Se etapa crítica falhar, o PR não está pronto para merge
+## Jobs (BullMQ)
+
+- E-mails / notificações
+- Lembretes
+- Waitlist
+- Recovery / campanhas (MVP 2)
+- Webhooks
+- Relatórios
+- IA (MVP 3)
+
+## Anti-spam
+
+- Frequency cap
+- Horário permitido
+- Opt-out / consentimento
+- `last_recovery_message_at`
+- Limite configurável pelo OWNER
+
+## Abstração
 
 ```text
-Push / PR
-  → Install
-  → Lint
-  → Type Check
-  → Unit Tests
-  → Integration Tests
-  → Build
-  → Success
+Domain service → NotificationService → NotificationProvider → Brevo
 ```
+
+Não acoplar Brevo (ou WhatsApp) diretamente ao domínio de agendamento.

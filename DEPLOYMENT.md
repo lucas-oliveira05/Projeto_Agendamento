@@ -4,26 +4,35 @@
 
 | Ambiente | Papel |
 |----------|--------|
-| development | Desenvolvimento |
+| development | Dev local + CI |
 | staging | Homologação |
 | production | Clientes reais |
 
-## Fluxo recomendado
+## Stack de runtime
+
+- **API + workers:** containers (Docker)
+- **Web:** Vercel ou container
+- **PostgreSQL:** gerenciado (staging/production)
+- **Redis:** gerenciado (filas BullMQ)
+
+## Fluxo CI/CD
 
 ```text
-GitHub
-  → Pull Request
-  → Tests (CI)
-  → Merge
-  → Deploy Staging
-  → Validation
-  → Production
+PR → GitHub Actions (lint, typecheck, tests, build, security)
+  → Merge develop
+  → Deploy staging (quando configurado)
+  → Validação
+  → Merge main → production
 ```
 
-Deploy automatizado sempre que possível (CI/CD).
+## Secrets
 
-## Regras
+Somente via env / GitHub Secrets / Secret Manager. Nunca no frontend nem no Git.
 
-- Não deployar em production sem CI verde
-- Secrets só via ambiente / secret manager
-- Migrations aplicadas de forma controlada por ambiente
+## Migrations
+
+Aplicar migrations Prisma de forma controlada por ambiente (`migrate deploy` em staging/prod).
+
+## Health
+
+Endpoints de health na API; monitoramento de workers e jobs.

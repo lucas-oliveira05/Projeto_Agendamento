@@ -1,5 +1,7 @@
 # api
 
-API backend do SaaS de agendamento.
+Backend NestJS (Fastify adapter) — `/api/v1`.
 
-Status: scaffold — implementação pendente.
+Módulos: core, booking, crm, sales, automation, communication, billing, analytics, intelligence (MVP 2), ai (MVP 3).
+
+Status: scaffold — bootstrap na branch `feature/mvp1-foundation`.
